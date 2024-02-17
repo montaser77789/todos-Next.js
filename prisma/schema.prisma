@@ -24,6 +24,14 @@ model User {
   posts   Post[]
 }
 
+model Todo {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  body      String?
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
 type Address {
   street String
   city   String
