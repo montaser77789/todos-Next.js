@@ -1,19 +1,15 @@
+import { getTodosListAction } from "@/Actions/todosAction";
 import DialogForm from "@/components/DialogForm";
+import Todotable from "@/components/todosTable";
 
-
-export default function Home() {
-  // const todos = await getTodosListAction();
+export default async function Home() {
+  const todos = await getTodosListAction();
 
   return (
     <main className="container">
-      {/* <pre> {JSON.stringify(todos,undefined,2)}</pre> */}
-      {/* <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul> */}
-      <DialogForm/>
+      <DialogForm />
 
+      <Todotable todos={todos} />
     </main>
   );
 }

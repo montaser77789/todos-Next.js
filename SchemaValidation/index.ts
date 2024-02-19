@@ -16,6 +16,7 @@ export const todoFormSchema = z.object({
         message: "body must not be longer than 80 characters.",
       })
       .optional(),
+      completed: z.boolean()
   });
 
 export  type todoFormValues = z.infer<typeof todoFormSchema>;

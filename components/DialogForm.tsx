@@ -11,8 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { getTodosListAction } from "@/Actions/todosAction";
+import { createTodoAction, getTodosListAction } from "@/Actions/todosAction";
 import {
   Form,
   FormControl,
@@ -26,11 +25,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { todoFormSchema, todoFormValues } from "@/SchemaValidation";
+import { Checkbox } from "./ui/checkbox";
 
 const DialogForm = () => {
   const defaultValues: Partial<todoFormValues> = {
-    title: "DEFULT TITLE",
-    body: "DEFULT DESCRIPTION",
+    title: "",
+    body: "",
+    completed: false,
   };
 
   const form = useForm<todoFormValues>({
@@ -40,6 +41,11 @@ const DialogForm = () => {
   });
   const onSubmit = (data: todoFormValues) => {
     console.log(data);
+    createTodoAction({
+      title: data.title,
+      body: data.body,
+      completed: data.completed,
+    });
   };
 
   return (
@@ -87,6 +93,25 @@ const DialogForm = () => {
                         {...field}
                       />
                     </FormControl>
+                    <FormDescription></FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="completed"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormLabel>completed</FormLabel>
                     <FormDescription></FormDescription>
                     <FormMessage />
                   </FormItem>
