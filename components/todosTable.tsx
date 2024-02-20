@@ -14,7 +14,7 @@ import TodoTableAction from "./TodoTableAction";
 
 export default function Todotable({ todos }: { todos: Itodo[] }) {
   return (
-    <Table>
+    <Table className="container ">
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>

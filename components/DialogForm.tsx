@@ -26,8 +26,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { todoFormSchema, todoFormValues } from "@/SchemaValidation";
 import { Checkbox } from "./ui/checkbox";
+import { Fragment, useState } from "react";
+import Spiner from "./Spiner";
 
 const DialogForm = () => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const defaultValues: Partial<todoFormValues> = {
     title: "",
     body: "",
@@ -40,16 +45,18 @@ const DialogForm = () => {
     mode: "onChange",
   });
   const onSubmit = (data: todoFormValues) => {
-    console.log(data);
+    setLoading(true);
     createTodoAction({
       title: data.title,
       body: data.body,
       completed: data.completed,
     });
+    setLoading(false);
+    setOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus size={"18"} className="mr-1" /> New Todo
@@ -57,10 +64,7 @@ const DialogForm = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DialogDescription>
+          <DialogTitle>Add a new Todo</DialogTitle>
         </DialogHeader>
         <div className="py-4">
           <Form {...form}>
@@ -93,7 +97,9 @@ const DialogForm = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription></FormDescription>
+                    <FormDescription>
+                      You can write a short description about your next todo
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -104,20 +110,34 @@ const DialogForm = () => {
                 name="completed"
                 render={({ field }) => (
                   <FormItem>
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormLabel>completed</FormLabel>
-                    <FormDescription></FormDescription>
+                    <div className="flex items-center space-x-2">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormLabel>completed</FormLabel>
+                    </div>
+
+                    <FormDescription>
+                      Your to-do item will be uncompleted by defult umless you
+                      checked it.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Spiner /> Saving
+                  </>
+                ) : (
+                  "save"
+                )}
+              </Button>
             </form>
           </Form>
         </div>
