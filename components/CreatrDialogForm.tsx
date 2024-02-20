@@ -29,7 +29,7 @@ import { Checkbox } from "./ui/checkbox";
 import { Fragment, useState } from "react";
 import Spiner from "./Spiner";
 
-const DialogForm = () => {
+const CreateDialogForm = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -146,4 +146,4 @@ const DialogForm = () => {
   );
 };
 
-export default DialogForm;
+export default CreateDialogForm;
