@@ -3,12 +3,14 @@ import { Itodo } from "@/Interfaces";
 import { todoFormValues } from "@/SchemaValidation";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { date } from "zod";
 
 const prisma = new PrismaClient();
 
-export const getTodosListAction = async () => {
+export const getTodosListAction = async ({userId}:{userId:string|null}) => {
   return await prisma.todo.findMany({
+    where:{
+      userId:userId as string
+    },
     orderBy: {
       createdAt: "desc",
     },
@@ -18,12 +20,14 @@ export const createTodoAction = async ({
   title,
   body,
   completed,
-}: todoFormValues) => {
+  userId,
+}: Itodo) => {
   await prisma.todo.create({
     data: {
       title,
-      body,
+      body ,
       completed,
+      userId:userId as string
     },
   }),
     revalidatePath("/");

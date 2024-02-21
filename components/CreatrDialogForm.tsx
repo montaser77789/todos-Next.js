@@ -28,8 +28,9 @@ import { todoFormSchema, todoFormValues } from "@/SchemaValidation";
 import { Checkbox } from "./ui/checkbox";
 import { Fragment, useState } from "react";
 import Spiner from "./Spiner";
+import { Itodo } from "@/Interfaces";
 
-const CreateDialogForm = () => {
+const CreateDialogForm = ({ userId }: { userId: string | null }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -44,12 +45,13 @@ const CreateDialogForm = () => {
     defaultValues,
     mode: "onChange",
   });
-  const onSubmit = (data: todoFormValues) => {
+  const onSubmit = async ({title,completed,body}: todoFormValues) => {
     setLoading(true);
     createTodoAction({
-      title: data.title,
-      body: data.body,
-      completed: data.completed,
+      title,
+      body,
+      completed,
+      userId,
     });
     setLoading(false);
     setOpen(false);

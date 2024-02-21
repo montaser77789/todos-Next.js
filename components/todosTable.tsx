@@ -16,7 +16,7 @@ export default function Todotable({ todos }: { todos: Itodo[] }) {
   return (
     
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableCaption>A list of your Todos.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">ID</TableHead>
@@ -26,7 +26,7 @@ export default function Todotable({ todos }: { todos: Itodo[] }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {todos.map((todo) => (
+          {todos?.map((todo) => (
             <TableRow key={todo.id}>
               <TableCell className="font-medium">{todo.id}</TableCell>
               <TableCell>{todo.title}</TableCell>
