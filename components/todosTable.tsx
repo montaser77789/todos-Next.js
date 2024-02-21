@@ -1,13 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
 import { Itodo } from "@/Interfaces";
 import { Badge } from "./ui/badge";
 import TodoTableAction from "./TodoTableAction";
@@ -26,7 +17,7 @@ export default function Todotable({ todos }: { todos: Itodo[] }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {todos?.map((todo) => (
+          {todos.map((todo) => (
             <TableRow key={todo.id}>
               <TableCell className="font-medium">{todo.id}</TableCell>
               <TableCell>{todo.title}</TableCell>
