@@ -37,6 +37,7 @@ export const updateTodoAction = async ({
   title,
   body,
   completed,
+  
 }: Itodo) => {
   await prisma.todo.update({
     where: {

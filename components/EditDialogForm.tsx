@@ -11,7 +11,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { createTodoAction, getTodosListAction, updateTodoAction } from "@/Actions/todosAction";
+import {
+  createTodoAction,
+  getTodosListAction,
+  updateTodoAction,
+} from "@/Actions/todosAction";
 import {
   Form,
   FormControl,
@@ -30,7 +34,7 @@ import { Fragment, useState } from "react";
 import Spiner from "./Spiner";
 import { Itodo } from "@/Interfaces";
 
-const EditDialogForm = ({todo}:{todo:Itodo}) => {
+const EditDialogForm = ({ todo }: { todo: Itodo }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -48,10 +52,11 @@ const EditDialogForm = ({todo}:{todo:Itodo}) => {
   const onSubmit = (data: todoFormValues) => {
     setLoading(true);
     updateTodoAction({
-        id:todo.id,
+      id: todo.id,
       title: data.title as string,
       body: data.body as string,
       completed: data.completed,
+      userId:todo.userId
     });
     setLoading(false);
     setOpen(false);
@@ -60,9 +65,9 @@ const EditDialogForm = ({todo}:{todo:Itodo}) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-      <Button size={"icon"}>
-        <Pen size={16} />
-      </Button>
+        <Button size={"icon"}>
+          <Pen size={16} />
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -117,7 +122,6 @@ const EditDialogForm = ({todo}:{todo:Itodo}) => {
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          {...field}
                         />
                       </FormControl>
                       <FormLabel>completed</FormLabel>

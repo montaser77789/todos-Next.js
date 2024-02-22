@@ -45,7 +45,7 @@ const CreateDialogForm = ({ userId }: { userId: string | null }) => {
     defaultValues,
     mode: "onChange",
   });
-  const onSubmit = async ({title,completed,body}: todoFormValues) => {
+  const onSubmit = async ({ title, completed, body }: todoFormValues) => {
     setLoading(true);
     createTodoAction({
       title,
@@ -59,7 +59,7 @@ const CreateDialogForm = ({ userId }: { userId: string | null }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="mb-2">
         <Button>
           <Plus size={"18"} className="mr-1" /> New Todo
         </Button>
@@ -117,7 +117,7 @@ const CreateDialogForm = ({ userId }: { userId: string | null }) => {
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          {...field}
+                         
                         />
                       </FormControl>
                       <FormLabel>completed</FormLabel>
